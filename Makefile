@@ -8,7 +8,7 @@ RM        := rm -rf
 SILENT := @
 
 CXX      := gcc
-CXXFLAGS := -ggdb -Wall -O0 -fshort-enums -Wunused -Wuninitialized -Wextra -Wmissing-declarations -Wconversion -Wpointer-arith -Wpadded -Wshadow -Wlogical-op -Waggregate-return
+CXXFLAGS := -ggdb -Wall -O0 -fshort-enums -Wunused -Wuninitialized -Wextra -Wmissing-declarations -Wconversion -Wpointer-arith -Wpadded -Wshadow -Waggregate-return
 
 all: clean compile
 
@@ -19,6 +19,7 @@ compile: $(OBJ_FILES)
 
 # For each c file generate an obj file 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+	$(SILENT)@echo ' '
 	$(SILENT)@echo 'Building file: $<'
 	$(CXX) -c "$<" -o "$@" $(CXXFLAGS)
 	$(SILENT)@echo 'Finished building: $<'

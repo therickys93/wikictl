@@ -13,7 +13,7 @@ int main(void) {
     int sockfd;
 
     char buf[4098];
-    int byte_count;
+    long byte_count;
 
     //get host info, make socket and connect it
     memset(&hints, 0,sizeof hints);
@@ -29,7 +29,7 @@ int main(void) {
     printf("GET Sent...\n");
     //all right ! now that we're connected, we can receive some data!
     byte_count = recv(sockfd,buf,sizeof(buf),0);
-    printf("recv()'d %d bytes of data in buf\n",byte_count);
-    printf("%.*s",byte_count,buf); // <-- give printf() the actual data size
+    printf("recv()'d %ld bytes of data in buf\n",byte_count);
+    printf("%s",buf); // <-- give printf() the actual data size
     return 0;
 }
