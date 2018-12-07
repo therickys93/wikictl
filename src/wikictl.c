@@ -5,31 +5,45 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
+#include <wikictl.h>
 
 int main(void) {
     //Stream sockets and rcv()
 
     struct addrinfo hints, *res;
     int sockfd;
-
-    char buf[4098];
+    FILE *file;
+    char buf[10000];
     long byte_count;
+    parameters_t params;
+    char header[500];
 
-    //get host info, make socket and connect it
+    // init with default parameters_t
+    sprintf(params.port,     "80");
+    sprintf(params.url,      "therickys93.altervista.org");
+    sprintf(params.endpoint, "/");
+    sprintf(header,          "GET %s HTTP/1.1\r\nHost: %s\r\n\r\n", params.endpoint, params.url);
+
+    // parsing arguments
+
+    // execute commands
     memset(&hints, 0,sizeof hints);
     hints.ai_family=AF_UNSPEC;
     hints.ai_socktype = SOCK_STREAM;
-    getaddrinfo("therickys93.altervista.org","80", &hints, &res);
+    getaddrinfo(params.url,params.port, &hints, &res);
     sockfd = socket(res->ai_family,res->ai_socktype,res->ai_protocol);
     printf("Connecting...\n");
     connect(sockfd,res->ai_addr,res->ai_addrlen);
     printf("Connected!\n");
-    char *header = "GET /index.html HTTP/1.1\r\nHost: therickys93.altervista.org\r\n\r\n";
     send(sockfd,header,strlen(header),0);
     printf("GET Sent...\n");
     //all right ! now that we're connected, we can receive some data!
-    byte_count = recv(sockfd,buf,sizeof(buf),0);
+    byte_count = recv(sockfd,buf,10000,0);
     printf("recv()'d %ld bytes of data in buf\n",byte_count);
-    printf("%s",buf); // <-- give printf() the actual data size
+    file = fopen("response.txt", "w");
+    if(file != NULL){
+        fprintf(file, "%s", buf);
+        fclose(file);
+    }
     return 0;
 }

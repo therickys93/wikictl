@@ -8,7 +8,7 @@ RM        := rm -rf
 SILENT := @
 
 CXX      := gcc
-CXXFLAGS := -ggdb -Wall -O0 -fshort-enums -Wunused -Wuninitialized -Wextra -Wmissing-declarations -Wconversion -Wpointer-arith -Wpadded -Wshadow -Waggregate-return
+CXXFLAGS := -ggdb -Wall -O0 -I"include/" -fshort-enums -Wunused -Wuninitialized -Wextra -Wmissing-declarations -Wconversion -Wpointer-arith -Wpadded -Wshadow -Waggregate-return
 
 all: clean compile
 
