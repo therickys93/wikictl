@@ -1,0 +1,9 @@
+Package: wikictl
+Version: 1.0
+Section: custom
+Priority: optional
+Architecture: all
+Essential: no
+Installed-Size: 1024
+Maintainer: therickys93@gmail.com
+Description: Command Line Application for https://github.com/therickys93/wikicontroller.git

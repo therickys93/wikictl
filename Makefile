@@ -29,3 +29,7 @@ clean:
 	$(SILENT)@echo 'Cleaning...'
 	$(RM) $(OBJ_FILES)
 	$(RM) $(BIN_DIR)/$(APP_NAME)
+
+deb: compile
+	cp $(BIN_DIR)/$(APP_NAME) $(APP_NAME)/usr/bin
+	dpkg-deb --build $(APP_NAME)
