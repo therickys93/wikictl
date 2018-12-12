@@ -7,6 +7,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <wikictl_execute.h>
+#include <wikictl_help.h>
 
 int execute(parameters_t *params)
 {
@@ -14,6 +15,11 @@ int execute(parameters_t *params)
     int sockfd;
     char buf[10000];
     long byte_count;
+
+    if(1 == params->show_help){
+        show_help();
+        return 0;
+    }
 
     memset(&hints, 0,sizeof hints);
     hints.ai_family=AF_UNSPEC;
