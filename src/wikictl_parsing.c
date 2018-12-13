@@ -18,6 +18,9 @@ void parsing_parameters(int argc, char *argv[], const char *optString, struct op
             case 'P':
                 strcpy(params->port, optarg);
                 break;
+            case 'k':
+                strcpy(params->key, optarg);
+                break;
             case 'h':
                 params->show_help = 1;
                 break;

@@ -8,6 +8,7 @@
 #include <string.h>
 #include <wikictl_execute.h>
 #include <wikictl_help.h>
+#include <wikictl_utilities.h>
 
 int execute(parameters_t *params)
 {
@@ -19,6 +20,11 @@ int execute(parameters_t *params)
     if(1 == params->show_help){
         show_help();
         return 0;
+    }
+
+    if(RESET == params->operation){
+        sprintf(params->endpoint, "/reset/%s", params->key);
+        update_http_request(params);
     }
 
     memset(&hints, 0,sizeof hints);
