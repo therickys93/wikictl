@@ -10,6 +10,7 @@ void init_parameters(parameters_t *params)
     sprintf(params->key,          "");
     params->show_help = 0;
     params->operation = HOME;
+    params->position  = 0;
 }
 
 void update_http_request(parameters_t *params)

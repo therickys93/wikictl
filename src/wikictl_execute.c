@@ -25,6 +25,12 @@ int execute(parameters_t *params)
     if(RESET == params->operation){
         sprintf(params->endpoint, "/reset/%s", params->key);
         update_http_request(params);
+    } else if(ACCENDI == params->operation){
+        sprintf(params->endpoint, "/on/%s/%d", params->key, params->position);
+        update_http_request(params);
+    } else if(SPEGNI == params->operation){
+        sprintf(params->endpoint, "/off/%s/%d", params->key, params->position);
+        update_http_request(params);
     }
 
     memset(&hints, 0,sizeof hints);

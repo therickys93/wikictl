@@ -3,7 +3,9 @@
 
 typedef enum {
     HOME,
-    RESET
+    RESET,
+    ACCENDI,
+    SPEGNI
 } Operation;
 
 typedef struct {
@@ -14,6 +16,7 @@ typedef struct {
     int       show_help;
     Operation operation;
     char      key[100];
+    int       position;
 } parameters_t;
 
 #endif

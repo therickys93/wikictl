@@ -21,6 +21,9 @@ void parsing_parameters(int argc, char *argv[], const char *optString, struct op
             case 'k':
                 strcpy(params->key, optarg);
                 break;
+            case 'p':
+                params->position = atoi(optarg);
+                break;
             case 'h':
                 params->show_help = 1;
                 break;
