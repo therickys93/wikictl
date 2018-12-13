@@ -1,17 +1,29 @@
 #include <wikictl_parsing.h>
 #include <string.h>
+#include <getopt.h>
 
 // not working
 // to be fixed
-void parsing_parameters(int argc, char *argv, parameters_t *params)
+void parsing_parameters(int argc, char *argv[], const char *optString, struct option *long_options, parameters_t *params)
 {
-    for(int i = 0; i < argc; i++){
-        if(strcmp("-H", &argv[i]) == 0){
-            strcpy(params->url, &argv[i + 1]);
-        } else if(strcmp("-P", &argv[i]) == 0){
-            strcpy(params->port, &argv[i + 1]);
-        } else if(strcmp("-h", &argv[i]) == 0){
-            params->show_help = 1;
+    int cmd_int = 0;
+    int option_index = 0;
+
+    while ((cmd_int = getopt_long(argc, argv, optString, long_options, &option_index)) != -1) {
+        switch (cmd_int)
+        {
+            case 'H':
+                strcpy(params->url, optarg);
+                break;
+            case 'P':
+                strcpy(params->port, optarg);
+                break;
+            case 'h':
+                params->show_help = 1;
+                break;
+            default:
+                break;
         }
     }
+
 }
