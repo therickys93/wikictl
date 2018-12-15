@@ -1,9 +1,8 @@
 #include <wikictl_parsing.h>
 #include <string.h>
 #include <getopt.h>
+#include <stdlib.h>
 
-// not working
-// to be fixed
 void parsing_parameters(int argc, char *argv[], const char *optString, struct option *long_options, parameters_t *params)
 {
     int cmd_int = 0;
