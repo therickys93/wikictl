@@ -5,7 +5,9 @@ typedef enum {
     HOME,
     RESET,
     ACCENDI,
-    SPEGNI
+    SPEGNI,
+    APRI,
+    CHIUDI
 } Operation;
 
 typedef struct {
