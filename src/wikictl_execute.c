@@ -17,10 +17,6 @@ int execute(parameters_t *params)
     char buf[10000];
     long byte_count;
 
-    if(NONE == params->operation){
-        return 1;
-    }
-
     if(1 == params->show_help){
         show_help();
         return 0;
@@ -49,6 +45,8 @@ int execute(parameters_t *params)
     } else if(STATUS == params->operation){
         sprintf(params->endpoint, "/status/%s", params->key);
         update_http_request(params);
+    } else if(NONE == params->operation){
+        return 1;
     }
 
     memset(&hints, 0,sizeof hints);
