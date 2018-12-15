@@ -3,7 +3,16 @@
 
 void show_help()
 {
-    printf("Usage: wikictl -H <host> -P <port>\n");
+    printf("Uso: wikictl -H <host> -P <port>\n");
     printf("\n");
-    printf("-h --> show this help message\n");
+    printf("-h,--help --> mostra questo messaggio.\n");
+    printf("-v,--version --> mostra la versione.\n");
+    printf("-k <value> --> setta la chiave.\n");
+    printf("-p <value> --> setta la posizione.\n");
+    printf("--accendi --> accende.\n");
+    printf("--spegni --> spegne.\n");
+    printf("--apri --> apre.\n");
+    printf("--chiudi --> chiude.\n");
+    printf("--status --> mostra lo stato.\n");
+    printf("--home --> pagina principale.\n");
 }
