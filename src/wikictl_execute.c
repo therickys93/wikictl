@@ -17,8 +17,17 @@ int execute(parameters_t *params)
     char buf[10000];
     long byte_count;
 
+    if(NONE == params->operation){
+        return 1;
+    }
+
     if(1 == params->show_help){
         show_help();
+        return 0;
+    }
+
+    if(1 == params->show_version){
+        show_version();
         return 0;
     }
 
