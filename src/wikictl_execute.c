@@ -37,6 +37,9 @@ int execute(parameters_t *params)
     } else if(CHIUDI == params->operation){
         sprintf(params->endpoint, "/openclose/%s/%d", params->key, params->position);
         update_http_request(params);
+    } else if(STATUS == params->operation){
+        sprintf(params->endpoint, "/status/%s", params->key, params->position);
+        update_http_request(params);
     }
 
     memset(&hints, 0,sizeof hints);

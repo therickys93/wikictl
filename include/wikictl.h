@@ -7,7 +7,8 @@ typedef enum {
     ACCENDI,
     SPEGNI,
     APRI,
-    CHIUDI
+    CHIUDI,
+    STATUS
 } Operation;
 
 typedef struct {
