@@ -6,3 +6,4 @@ script:
     - make clean
     - make
     - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then make deb          ; fi
+    - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then make zip          ; fi
