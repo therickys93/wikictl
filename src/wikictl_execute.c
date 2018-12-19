@@ -15,7 +15,6 @@ int execute(parameters_t *params)
     struct addrinfo hints, *res;
     int sockfd;
     char buf[10000];
-    long byte_count;
 
     if(1 == params->show_help){
         show_help();
@@ -56,7 +55,7 @@ int execute(parameters_t *params)
     sockfd = socket(res->ai_family,res->ai_socktype,res->ai_protocol);
     connect(sockfd,res->ai_addr,res->ai_addrlen);
     send(sockfd,params->http_request,strlen(params->http_request),0);
-    byte_count = recv(sockfd,buf,10000,0);
+    recv(sockfd,buf,10000,0);
     printf("%s", buf);
     return 0;
 }
