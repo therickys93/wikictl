@@ -1,5 +1,6 @@
 #include <wikictl_utilities.h>
 #include <stdio.h>
+#include <string.h>
 #include <version.h>
 
 void init_parameters(parameters_t *params)
