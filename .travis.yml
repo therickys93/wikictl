@@ -5,3 +5,4 @@ language: c
 script:
     - make clean
     - make
+    - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then make deb          ; fi
