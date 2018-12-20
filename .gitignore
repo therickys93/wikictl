@@ -1,4 +1,4 @@
 *.out
 *.deb
-debian/
+*.zip
 response.txt

@@ -1,0 +1,12 @@
+os:
+  - linux
+  - osx
+  - windows
+language: c
+before_install:
+  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then choco install make          ; fi
+script:
+    - make clean
+    - if [[ "$TRAVIS_OS_NAME" != "windows" ]]; then make          ; fi
+    - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then make deb          ; fi
+    - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then make zip          ; fi

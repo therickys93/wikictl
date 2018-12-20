@@ -1,5 +1,6 @@
 #include <wikictl_utilities.h>
 #include <stdio.h>
+#include <string.h>
 #include <version.h>
 
 void init_parameters(parameters_t *params)
@@ -8,7 +9,7 @@ void init_parameters(parameters_t *params)
     sprintf(params->url,          "127.0.0.1");
     sprintf(params->endpoint,     "/");
     sprintf(params->http_request, "GET %s HTTP/1.1\r\nHost: %s\r\n\r\n", params->endpoint, params->url);
-    sprintf(params->key,          "");
+    strcpy(params->key,           "");
     params->show_help = 0;
     params->operation = NONE;
     params->position  = 0;

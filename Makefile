@@ -38,3 +38,8 @@ clean:
 deb: compile
 	cp $(BIN_DIR)/$(APP_NAME) $(APP_NAME)/usr/bin
 	dpkg-deb --build $(APP_NAME)
+	mv wikictl.deb debian/
+	dpkg-scanpackages debian /dev/null | gzip -9c > debian/Packages.gz
+
+zip: compile
+	zip -r $(APP_NAME).zip $(BIN_DIR)/$(APP_NAME)
