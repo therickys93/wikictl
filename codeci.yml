@@ -1,0 +1,5 @@
+os: ubuntu14
+language: cpp
+script:
+    - make clean
+    - make
