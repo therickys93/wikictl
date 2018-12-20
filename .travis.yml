@@ -4,7 +4,7 @@ os:
   - windows
 language: c
 before_install:
-  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then choco install make          ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then choco install make curl         ; fi
 script:
     - make clean
     - if [[ "$TRAVIS_OS_NAME" != "windows" ]]; then make          ; fi
