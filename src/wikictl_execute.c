@@ -1,20 +1,13 @@
 #include <wikictl.h>
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <netdb.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <string.h>
+#include <curl/curl.h>
 #include <wikictl_execute.h>
 #include <wikictl_help.h>
 #include <wikictl_utilities.h>
 
 int execute(parameters_t *params)
 {
-    struct addrinfo hints, *res;
-    int sockfd;
-    char buf[10000];
+    CURL *curl;
+    CURLcode res;
 
     if(1 == params->show_help){
         show_help();
@@ -48,14 +41,21 @@ int execute(parameters_t *params)
         return 1;
     }
 
-    memset(&hints, 0,sizeof hints);
-    hints.ai_family=AF_UNSPEC;
-    hints.ai_socktype = SOCK_STREAM;
-    getaddrinfo(params->url,params->port, &hints, &res);
-    sockfd = socket(res->ai_family,res->ai_socktype,res->ai_protocol);
-    connect(sockfd,res->ai_addr,res->ai_addrlen);
-    send(sockfd,params->http_request,strlen(params->http_request),0);
-    recv(sockfd,buf,10000,0);
-    printf("%s", buf);
+    curl = curl_easy_init();
+    if(curl) {
+        curl_easy_setopt(curl, CURLOPT_URL, params->http_request);
+        /* example.com is redirected, so we tell libcurl to follow redirection */ 
+        curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
+
+        /* Perform the request, res will get the return code */ 
+        res = curl_easy_perform(curl);
+        /* Check for errors */ 
+        if(res != CURLE_OK)
+            fprintf(stderr, "curl_easy_perform() failed: %s\n",
+                    curl_easy_strerror(res));
+
+        /* always cleanup */ 
+        curl_easy_cleanup(curl);
+    }
     return 0;
 }

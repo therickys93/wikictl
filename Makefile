@@ -9,7 +9,7 @@ SHELL     := sh
 SILENT    := @
 
 CXX      := gcc
-CXXFLAGS := -ggdb -Wall -O0 -I"include/" -I"config/" -fshort-enums -Wunused -Wuninitialized -Wextra -Wmissing-declarations -Wconversion -Wpointer-arith -Wpadded -Wshadow -Waggregate-return
+CXXFLAGS := -ggdb -Wall -O0 -lcurl -I"include/" -I"config/" -fshort-enums -Wunused -Wuninitialized -Wextra -Wmissing-declarations -Wconversion -Wpointer-arith -Wpadded -Wshadow -Waggregate-return
 
 all: clean version compile
 
