@@ -9,7 +9,7 @@ SHELL     := sh
 SILENT    := @
 
 CXX      := gcc
-CXXFLAGS := -ggdb -Wall -O0 -lcurl -I"include/" -I"config/" -fshort-enums -Wunused -Wuninitialized -Wextra -Wmissing-declarations -Wconversion -Wpointer-arith -Wpadded -Wshadow -Waggregate-return
+CXXFLAGS := -ggdb -Wall -O0 -I"include/" -I"config/" -fshort-enums -Wunused -Wuninitialized -Wextra -Wmissing-declarations -Wconversion -Wpointer-arith -Wpadded -Wshadow -Waggregate-return
 
 all: clean version compile
 
@@ -17,7 +17,7 @@ version:
 	$(SILENT)$(SHELL) generate_version.sh
 
 compile: $(OBJ_FILES)
-	$(CXX) $(CXXFLAGS) -o $(BIN_DIR)/$(APP_NAME) $^
+	$(CXX) $(CXXFLAGS) -o $(BIN_DIR)/$(APP_NAME) $^ -lcurl
 	$(SILENT)@echo '$(APP_NAME) build: $(BIN_DIR)/$(APP_NAME) generated.'
 	$(SILENT)@echo ' '
 
