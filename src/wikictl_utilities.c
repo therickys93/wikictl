@@ -36,8 +36,8 @@ int read_content_of_file(char *filename, char *content)
         fSize = ftell(file);
         rewind(file);
 
-        result = fread(content, 1, fSize, file);
-        if(result != fSize){
+        result = fread(content, 1, (size_t)fSize, file);
+        if((long)result != (long)fSize){
             return 2;
         }
 
