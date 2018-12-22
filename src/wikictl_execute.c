@@ -1,5 +1,6 @@
 #include <wikictl.h>
 #include <curl/curl.h>
+#include <string.h>
 #include <wikictl_execute.h>
 #include <wikictl_help.h>
 #include <wikictl_utilities.h>
@@ -8,6 +9,8 @@ int execute(parameters_t *params)
 {
     CURL *curl;
     CURLcode res;
+    FILE *downloadFile;
+    char downloadFilename[100] = "wiki.json";
 
     if(1 == params->show_help){
         show_help();
@@ -37,25 +40,40 @@ int execute(parameters_t *params)
     } else if(STATUS == params->operation){
         sprintf(params->endpoint, "/status/%s", params->key);
         update_http_request(params);
+    } else if(DOWNLOAD == params->operation){
+        sprintf(params->endpoint, "/download");
+        update_http_request(params);
+    } else if(HOME == params->operation){
+        strcpy(params->endpoint, "/");
+        update_http_request(params);
     } else if(NONE == params->operation){
+        printf("Nessuna operazione specificata\n");
         return 1;
     }
 
+    curl_global_init(CURL_GLOBAL_ALL);
     curl = curl_easy_init();
     if(curl) {
         curl_easy_setopt(curl, CURLOPT_URL, params->http_request);
-        /* example.com is redirected, so we tell libcurl to follow redirection */ 
         curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
-
-        /* Perform the request, res will get the return code */ 
+        if(DOWNLOAD == params->operation){
+            downloadFile = fopen(downloadFilename, "wb");
+            if(downloadFile) {
+                curl_easy_setopt(curl, CURLOPT_WRITEDATA, downloadFile);
+            }
+        }
         res = curl_easy_perform(curl);
-        /* Check for errors */ 
-        if(res != CURLE_OK)
-            fprintf(stderr, "curl_easy_perform() failed: %s\n",
-                    curl_easy_strerror(res));
-
-        /* always cleanup */ 
+        if(res != CURLE_OK){
+            fprintf(stderr, "curl_easy_perform() failed: %s\n", curl_easy_strerror(res));
+        }
+        if(DOWNLOAD == params->operation){
+            fclose(downloadFile);
+        }
         curl_easy_cleanup(curl);
+        curl_global_cleanup();
+    } else {
+        printf("Errore di connessione\n");
+        return 2;
     }
     return 0;
 }

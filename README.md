@@ -17,3 +17,5 @@ Applicazione a riga di comando che si interfaccia con therickys93/wikicontroller
 ```wikictl --chiudi -k <key> -p <pos>``` --> GET /openclose/:key/:pos ( pos parte da zero ).
 
 ```wikictl --status -k <key>``` --> GET /status/:key
+
+```wikictl --download``` --> GET /download

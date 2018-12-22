@@ -15,4 +15,5 @@ void show_help()
     printf("--chiudi --> chiude.\n");
     printf("--status --> mostra lo stato.\n");
     printf("--home --> pagina principale.\n");
+    printf("--download --> scarica configurazione.\n");
 }
