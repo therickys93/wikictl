@@ -24,3 +24,26 @@ void show_version()
 {
     printf("wikictl version: %d.%d.%d (0xg%x)\n", MAJOR, MINOR, PATCH, COMMIT);
 }
+
+int read_content_of_file(char *filename, char *content)
+{
+    FILE *file;
+    long fSize = 0;
+    size_t result = 0;
+    file = fopen(filename, "r");
+    if(file != NULL) {
+        fseek(file, 0, SEEK_END);
+        fSize = ftell(file);
+        rewind(file);
+
+        result = fread(content, 1, fSize, file);
+        if(result != fSize){
+            return 2;
+        }
+
+        fclose(file);
+        return 0;
+    } else {
+        return 1;
+    }
+}

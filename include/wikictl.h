@@ -12,7 +12,8 @@ typedef enum {
     APRI,
     CHIUDI,
     STATUS,
-    DOWNLOAD
+    DOWNLOAD,
+    UPLOAD
 } Operation;
 
 typedef struct {

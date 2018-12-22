@@ -19,6 +19,7 @@ static struct option  long_options[] =
     {"chiudi",   no_argument, (int *)&(params.operation),    CHIUDI},
     {"status",   no_argument, (int *)&(params.operation),    STATUS},
     {"download", no_argument, (int *)&(params.operation),    DOWNLOAD},
+    {"upload",   no_argument, (int *)&(params.operation),    UPLOAD},
     {0,0,0,0}
 };
 

@@ -19,3 +19,5 @@ Applicazione a riga di comando che si interfaccia con therickys93/wikicontroller
 ```wikictl --status -k <key>``` --> GET /status/:key
 
 ```wikictl --download``` --> GET /download
+
+```wikictl --upload``` --> POST /upload

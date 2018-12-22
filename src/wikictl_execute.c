@@ -11,6 +11,8 @@ int execute(parameters_t *params)
     CURLcode res;
     FILE *downloadFile;
     char downloadFilename[100] = "wiki.json";
+    char uploadFilename[100]   = "wiki.json";
+    char content[4096]         = "";
 
     if(1 == params->show_help){
         show_help();
@@ -43,6 +45,9 @@ int execute(parameters_t *params)
     } else if(DOWNLOAD == params->operation){
         sprintf(params->endpoint, "/download");
         update_http_request(params);
+    } else if(UPLOAD == params->operation){
+        sprintf(params->endpoint, "/upload");
+        update_http_request(params);
     } else if(HOME == params->operation){
         strcpy(params->endpoint, "/");
         update_http_request(params);
@@ -60,6 +65,19 @@ int execute(parameters_t *params)
             downloadFile = fopen(downloadFilename, "wb");
             if(downloadFile) {
                 curl_easy_setopt(curl, CURLOPT_WRITEDATA, downloadFile);
+            }
+        } else if(UPLOAD == params->operation){
+            int rc = read_content_of_file(uploadFilename, content);
+            if(0 == rc){
+                struct curl_slist *headers = NULL;
+                headers = curl_slist_append(headers, "Accept: application/json");
+                headers = curl_slist_append(headers, "Content-Type: application/json");
+                headers = curl_slist_append(headers, "charsets: utf-8");
+                curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
+                curl_easy_setopt(curl, CURLOPT_POSTFIELDS, content);
+            } else {
+                printf("Errore nella lettura del file");
+                return 3;
             }
         }
         res = curl_easy_perform(curl);
