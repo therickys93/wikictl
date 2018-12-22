@@ -17,7 +17,7 @@ version:
 	$(SILENT)$(SHELL) generate_version.sh
 
 compile: $(OBJ_FILES)
-	$(CXX) $(CXXFLAGS) -o $(BIN_DIR)/$(APP_NAME) $^
+	$(CXX) $(CXXFLAGS) -o $(BIN_DIR)/$(APP_NAME) $^ -lcurl
 	$(SILENT)@echo '$(APP_NAME) build: $(BIN_DIR)/$(APP_NAME) generated.'
 	$(SILENT)@echo ' '
 

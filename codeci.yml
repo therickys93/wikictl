@@ -1,5 +1,7 @@
 os: ubuntu14
 language: cpp
 script:
+    - apt-get update
+    - apt-get install libcurl4-openssl-dev -y
     - make clean
     - make
