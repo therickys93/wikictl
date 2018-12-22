@@ -1,13 +1,8 @@
 os:
   - linux
   - osx
-  - windows
 language: c
 before_install:
-  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then choco install make curl ; 
-      curl -s https://curl.haxx.se/windows/dl-7.63.0/curl-7.63.0-win32-mingw.zip ; 
-      unzip curl-7.63.0-win32-mingw.zip  ;
-    fi
 script:
     - make clean
     - make
