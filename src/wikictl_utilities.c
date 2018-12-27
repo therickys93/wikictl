@@ -12,7 +12,7 @@ void init_parameters(parameters_t *params)
     strcpy(params->key,           "");
     params->show_help = 0;
     params->operation = NONE;
-    params->position  = 0;
+    params->position  = -1;
 }
 
 void update_http_request(parameters_t *params)

@@ -25,23 +25,53 @@ int execute(parameters_t *params)
     }
 
     if(RESET == params->operation){
-        sprintf(params->endpoint, "/reset/%s", params->key);
-        update_http_request(params);
+        if(strlen(params->key) > 0){
+            sprintf(params->endpoint, "/reset/%s", params->key);
+            update_http_request(params);
+        } else {
+            printf("Parametro 'key' manca.\n");
+            return 2;
+        }
     } else if(ACCENDI == params->operation){
-        sprintf(params->endpoint, "/on/%s/%d", params->key, params->position);
-        update_http_request(params);
+        if((strlen(params->key) > 0) && (params->position != -1)){
+            sprintf(params->endpoint, "/on/%s/%d", params->key, params->position);
+            update_http_request(params);
+        } else {
+            printf("Parametri 'key' e 'position' mancano.\n");
+            return 2;
+        }
     } else if(SPEGNI == params->operation){
-        sprintf(params->endpoint, "/off/%s/%d", params->key, params->position);
-        update_http_request(params);
+        if((strlen(params->key) > 0) && (params->position != -1)){
+            sprintf(params->endpoint, "/off/%s/%d", params->key, params->position);
+            update_http_request(params);
+        } else {
+            printf("Parametri 'key' e 'position' mancano.\n");
+            return 2;
+        }
     } else if(APRI == params->operation){
-        sprintf(params->endpoint, "/openclose/%s/%d", params->key, params->position);
-        update_http_request(params);
+        if((strlen(params->key) > 0) && (params->position != -1)){
+            sprintf(params->endpoint, "/openclose/%s/%d", params->key, params->position);
+            update_http_request(params);
+        } else {
+            printf("Parametri 'key' e 'position' mancano.\n");
+            return 2;
+        }
     } else if(CHIUDI == params->operation){
-        sprintf(params->endpoint, "/openclose/%s/%d", params->key, params->position);
-        update_http_request(params);
+        if((strlen(params->key) > 0) && (params->position != -1)){
+            sprintf(params->endpoint, "/openclose/%s/%d", params->key, params->position);
+            update_http_request(params);
+        } else {
+            printf("Parametri 'key' e 'position' mancano.\n");
+            return 2;
+        }
     } else if(STATUS == params->operation){
-        sprintf(params->endpoint, "/status/%s", params->key);
-        update_http_request(params);
+        if(strlen(params->key) > 0){
+            sprintf(params->endpoint, "/status/%s", params->key);
+            update_http_request(params);
+        } else {
+            printf("Parametro 'key' manca.\n");
+            return 2;
+        }
     } else if(DOWNLOAD == params->operation){
         sprintf(params->endpoint, "/download");
         update_http_request(params);
@@ -52,7 +82,7 @@ int execute(parameters_t *params)
         strcpy(params->endpoint, "/");
         update_http_request(params);
     } else if(NONE == params->operation){
-        printf("Nessuna operazione specificata\n");
+        printf("Nessuna operazione specificata.\n");
         return 1;
     }
 
