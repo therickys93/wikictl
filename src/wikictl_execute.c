@@ -81,6 +81,14 @@ int execute(parameters_t *params)
     } else if(HOME == params->operation){
         strcpy(params->endpoint, "/");
         update_http_request(params);
+    } else if(SERVER == params->operation){
+        if(strlen(params->message) > 0){
+            strcpy(params->endpoint, "/v1/wiki");
+            update_http_request(params);
+        } else {
+            printf("Parametro 'message' manca.\n");
+            return 2;
+        }
     } else if(NONE == params->operation){
         printf("Nessuna operazione specificata.\n");
         return 1;
@@ -109,6 +117,14 @@ int execute(parameters_t *params)
                 printf("Errore nella lettura del file");
                 return 3;
             }
+        } else if(SERVER == params->operation){
+            create_json_content(params->message, content);
+            struct curl_slist *headers = NULL;
+            headers = curl_slist_append(headers, "Accept: application/json");
+            headers = curl_slist_append(headers, "Content-Type: application/json");
+            headers = curl_slist_append(headers, "charsets: utf-8");
+            curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
+            curl_easy_setopt(curl, CURLOPT_POSTFIELDS, content);
         }
         res = curl_easy_perform(curl);
         if(res != CURLE_OK){
