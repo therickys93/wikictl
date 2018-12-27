@@ -13,7 +13,8 @@ typedef enum {
     CHIUDI,
     STATUS,
     DOWNLOAD,
-    UPLOAD
+    UPLOAD,
+    SERVER
 } Operation;
 
 typedef struct {
@@ -27,6 +28,7 @@ typedef struct {
     Operation operation;
     char      key[128];
     int       position;
+    char      message[1000];
 } parameters_t;
 
 #endif

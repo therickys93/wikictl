@@ -6,7 +6,7 @@
 
 static parameters_t params;
 
-static const char*    optString = "H:P:k:p:hv";
+static const char*    optString = "H:m:P:k:p:hv";
 static struct option  long_options[] =
 {
     {"help",     no_argument, (int *)&(params.show_help),    1},
@@ -20,6 +20,7 @@ static struct option  long_options[] =
     {"status",   no_argument, (int *)&(params.operation),    STATUS},
     {"download", no_argument, (int *)&(params.operation),    DOWNLOAD},
     {"upload",   no_argument, (int *)&(params.operation),    UPLOAD},
+    {"server",   no_argument, (int *)&(params.operation),    SERVER},
     {0,0,0,0}
 };
 

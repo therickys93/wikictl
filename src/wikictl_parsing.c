@@ -26,6 +26,9 @@ void parsing_parameters(int argc, char *argv[], const char *optString, struct op
             case 'h':
                 params->show_help = 1;
                 break;
+            case 'm':
+                strcpy(params->message, optarg);
+                break;
             case 'v':
                 params->show_version = 1;
                 break;

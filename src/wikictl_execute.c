@@ -25,23 +25,53 @@ int execute(parameters_t *params)
     }
 
     if(RESET == params->operation){
-        sprintf(params->endpoint, "/reset/%s", params->key);
-        update_http_request(params);
+        if(strlen(params->key) > 0){
+            sprintf(params->endpoint, "/reset/%s", params->key);
+            update_http_request(params);
+        } else {
+            printf("Parametro 'key' manca.\n");
+            return 2;
+        }
     } else if(ACCENDI == params->operation){
-        sprintf(params->endpoint, "/on/%s/%d", params->key, params->position);
-        update_http_request(params);
+        if((strlen(params->key) > 0) && (params->position != -1)){
+            sprintf(params->endpoint, "/on/%s/%d", params->key, params->position);
+            update_http_request(params);
+        } else {
+            printf("Parametri 'key' e 'position' mancano.\n");
+            return 2;
+        }
     } else if(SPEGNI == params->operation){
-        sprintf(params->endpoint, "/off/%s/%d", params->key, params->position);
-        update_http_request(params);
+        if((strlen(params->key) > 0) && (params->position != -1)){
+            sprintf(params->endpoint, "/off/%s/%d", params->key, params->position);
+            update_http_request(params);
+        } else {
+            printf("Parametri 'key' e 'position' mancano.\n");
+            return 2;
+        }
     } else if(APRI == params->operation){
-        sprintf(params->endpoint, "/openclose/%s/%d", params->key, params->position);
-        update_http_request(params);
+        if((strlen(params->key) > 0) && (params->position != -1)){
+            sprintf(params->endpoint, "/openclose/%s/%d", params->key, params->position);
+            update_http_request(params);
+        } else {
+            printf("Parametri 'key' e 'position' mancano.\n");
+            return 2;
+        }
     } else if(CHIUDI == params->operation){
-        sprintf(params->endpoint, "/openclose/%s/%d", params->key, params->position);
-        update_http_request(params);
+        if((strlen(params->key) > 0) && (params->position != -1)){
+            sprintf(params->endpoint, "/openclose/%s/%d", params->key, params->position);
+            update_http_request(params);
+        } else {
+            printf("Parametri 'key' e 'position' mancano.\n");
+            return 2;
+        }
     } else if(STATUS == params->operation){
-        sprintf(params->endpoint, "/status/%s", params->key);
-        update_http_request(params);
+        if(strlen(params->key) > 0){
+            sprintf(params->endpoint, "/status/%s", params->key);
+            update_http_request(params);
+        } else {
+            printf("Parametro 'key' manca.\n");
+            return 2;
+        }
     } else if(DOWNLOAD == params->operation){
         sprintf(params->endpoint, "/download");
         update_http_request(params);
@@ -51,8 +81,16 @@ int execute(parameters_t *params)
     } else if(HOME == params->operation){
         strcpy(params->endpoint, "/");
         update_http_request(params);
+    } else if(SERVER == params->operation){
+        if(strlen(params->message) > 0){
+            strcpy(params->endpoint, "/v1/wiki");
+            update_http_request(params);
+        } else {
+            printf("Parametro 'message' manca.\n");
+            return 2;
+        }
     } else if(NONE == params->operation){
-        printf("Nessuna operazione specificata\n");
+        printf("Nessuna operazione specificata.\n");
         return 1;
     }
 
@@ -79,6 +117,14 @@ int execute(parameters_t *params)
                 printf("Errore nella lettura del file");
                 return 3;
             }
+        } else if(SERVER == params->operation){
+            create_json_content(params->message, content);
+            struct curl_slist *headers = NULL;
+            headers = curl_slist_append(headers, "Accept: application/json");
+            headers = curl_slist_append(headers, "Content-Type: application/json");
+            headers = curl_slist_append(headers, "charsets: utf-8");
+            curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
+            curl_easy_setopt(curl, CURLOPT_POSTFIELDS, content);
         }
         res = curl_easy_perform(curl);
         if(res != CURLE_OK){

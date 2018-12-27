@@ -41,5 +41,8 @@ deb: compile
 	mv wikictl.deb debian/
 	dpkg-scanpackages debian /dev/null | gzip -9c > debian/Packages.gz
 
+install: compile
+	cp $(BIN_DIR)/$(APP_NAME) /usr/local/bin
+
 zip: compile
 	zip -r $(APP_NAME).zip $(BIN_DIR)/$(APP_NAME)
