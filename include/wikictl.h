@@ -29,6 +29,7 @@ typedef struct {
     char      key[128];
     int       position;
     char      message[1000];
+    char      user[52];
 } parameters_t;
 
 #endif

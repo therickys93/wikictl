@@ -7,6 +7,6 @@ void init_parameters(parameters_t *params);
 void update_http_request(parameters_t *params);
 void show_version();
 int  read_content_of_file(char *filename, char *content);
-void create_json_content(char *message, char *content);
+void create_json_content(char *message, char *user_id, char *content);
 
 #endif
