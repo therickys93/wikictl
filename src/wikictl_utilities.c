@@ -11,6 +11,7 @@ void init_parameters(parameters_t *params)
     sprintf(params->http_request, "http://%s:%s%s", params->url, params->port, params->endpoint);
     strcpy(params->key,           "");
     strcpy(params->message,       "");
+    strcpy(params->user,          "");
     params->show_help = 0;
     params->operation = NONE;
     params->position  = -1;
@@ -49,9 +50,13 @@ int read_content_of_file(char *filename, char *content)
     }
 }
 
-void create_json_content(char *message, char *content)
+void create_json_content(char *message, char *user_id, char *content)
 {
     strcpy(content, "{\"request\":\"");
     strcat(content, message);
+    if(strlen(user_id) > 0){
+        strcat(content, "\", \"user_id\":\"");
+        strcat(content, user_id);
+    }
     strcat(content, "\"}");
 }

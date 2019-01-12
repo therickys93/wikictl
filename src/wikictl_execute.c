@@ -83,7 +83,11 @@ int execute(parameters_t *params)
         update_http_request(params);
     } else if(SERVER == params->operation){
         if(strlen(params->message) > 0){
-            strcpy(params->endpoint, "/v1/wiki");
+            if(strlen(params->user) > 0){
+                strcpy(params->endpoint, "/v2/wiki");
+            } else {
+                strcpy(params->endpoint, "/v1/wiki");
+            }
             update_http_request(params);
         } else {
             printf("Parametro 'message' manca.\n");
@@ -118,7 +122,7 @@ int execute(parameters_t *params)
                 return 3;
             }
         } else if(SERVER == params->operation){
-            create_json_content(params->message, content);
+            create_json_content(params->message, params->user, content);
             struct curl_slist *headers = NULL;
             headers = curl_slist_append(headers, "Accept: application/json");
             headers = curl_slist_append(headers, "Content-Type: application/json");
