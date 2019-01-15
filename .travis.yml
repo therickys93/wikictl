@@ -1,10 +1,18 @@
 os:
-  - linux
-  - osx
+- linux
+- osx
 language: c
-before_install:
+before_install: 
 script:
-    - make clean
-    - make
-    - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then make deb          ; fi
-    - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then make zip          ; fi
+- make clean
+- make
+- if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then make deb          ; fi
+- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then make zip          ; fi
+deploy:
+  provider: releases
+  api_key:
+    secure: Akvqs4c/MRtiRDFfFdD1D4vLoJXwir/kDdFseoe69vCpmyvTf13X62B4VQJk5tfYj8Fp7EjMKuGPngdPZuXPQjHRoG0+oRd9T9lBiIkUcN9h44kU2VferKzd+HtkiOfgPplhJmnjC2vQXQ6TOO6lwXnhJZydMuFEghaolr3od10AV5jn3VZsRwA862nmxlmYJLR9XOTjQUBic4yRfVmNltxS5yNfp+fCMN7jPaKmkL7xd6J+uWk6DkOlZkjvCVeynsCGFS9/TW8BXzH4eFbfEiCnAOXtZ7L/M9vY+WrvjHW5Q95DhIEK32BaUyOq7YYLf4BklUegXrCDYHklX2b+eTCcEip/sJNNWJek2NsbLEtbdAM5LmRrVXp8CmB3tw6NyAZVaEfN6DcWM40nhbVJKAIfJrZfLnml/8LF4lWb3ZjqUns66K07z0OuPEqvw3l0LfBB6nWqY8GcahP47XIOpP5Xn3XSOIgYPT8aJ50eb0lXJ8cYN0yq5ZcBiK8a1fqZoQ9CD2Qi+kyinVWJ0YtX0mSBiXYvmpNpXzbZ7DBsB9gM3CCOw8tSQU8+LiIS4fmiyvpdOLCCaOpuj1/Oql81X9y6+24M94MAJXHqFD0/8O7xy6t9Af3b/jgTjh1KWik+Fs69fcatQ3yRqlDQtTGJSwOsTL3qAW38+Bw/XdctmIA=
+  file: ''
+  on:
+    repo: therickys93/wikictl
+    branch: master
