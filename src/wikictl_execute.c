@@ -65,7 +65,10 @@ int execute(parameters_t *params)
             return 2;
         }
     } else if(STATUS == params->operation){
-        if(strlen(params->key) > 0){
+        if((strlen(params->key) > 0) && (params->position != -1)){
+            sprintf(params->endpoint, "/status/%s/%d", params->key, params->position);
+            update_http_request(params);
+        } else if(strlen(params->key) > 0){
             sprintf(params->endpoint, "/status/%s", params->key);
             update_http_request(params);
         } else {
